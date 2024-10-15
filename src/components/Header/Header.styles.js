@@ -191,10 +191,6 @@ export const HamburgerMenu = styled.div`
   }
 `;
 
-export const ObsessedLogo = styled.img`
-  height: 3rem;
-`;
-
 export const Row = styled.div`
   display: flex;
   flex-direction: row;

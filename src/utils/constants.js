@@ -1,5 +1,5 @@
-export const APPLICATION_NAME = "OBSESSED";
-export const APPLICATION_NAME_NORMAL = "Obsessed Shop";
+export const APPLICATION_NAME = "PORTFOLIO";
+export const APPLICATION_NAME_NORMAL = "Srdjan Uzunovic - Portfolio";
 export const LOCAL_STORAGE_ACCESS_TOKEN = `${APPLICATION_NAME}_ACCESS_TOKEN`;
 export const LOCAL_STORAGE_REFRESH_TOKEN = `${APPLICATION_NAME}_REFRESH_TOKEN`;
 
