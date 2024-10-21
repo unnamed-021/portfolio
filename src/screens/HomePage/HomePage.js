@@ -21,20 +21,13 @@ import Header from "../../components/Header/Header";
 import SectionAbout from "./utils/SectionAbout";
 import SectionProjects from "./utils/SectionProjects";
 import SectionGif from "./utils/SectionGif";
-import SplashScreen from "../../components/SplashScreen/SplashScreen";
+import openToast from "../../utils/toast";
 
 const HomePage = () => {
   const aboutSectionRef = useRef(null);
   const projectsSectionRef = useRef(null);
   const [showGoToTop, setShowGoToTop] = useState(false);
   const [showContact, setShowContact] = useState(false);
-
-  const [minimumDurationPassed, setMinimumDurationPassed] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setMinimumDurationPassed(true), 1000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const scrollToAbout = () => {
     if (aboutSectionRef.current) {
@@ -80,9 +73,57 @@ const HomePage = () => {
     return () => clearTimeout(timer);
   }, [showContact]);
 
+  /* CONTACT */
+
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const toastId = useRef(null);
+
+  const handleOnChange = (value, setValue) => {
+    setValue(value);
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!fullName) newErrors.fullName = "First name and Last name is required";
+    if (!message) newErrors.message = "Message is required";
+    if (!email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Email format is invalid";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const resetValues = () => {
+    setFullName("");
+    setEmail("");
+    setMessage("");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      openToast(
+        toastId,
+        "submit-message",
+        "success",
+        `Thank you, ${fullName}! Your message has been successfully submitted.`
+      );
+
+      resetValues();
+    }
+  };
+
   return (
     <Container>
-      {/* <SplashScreen /> */}
       <Header
         onAboutClick={scrollToAbout}
         onProjectsClick={scrollToProjects}
@@ -106,17 +147,33 @@ const HomePage = () => {
             <Column>
               <InputContainer>
                 <Label>Name</Label>
-                <Input placeholder="Your Name" />
+                <Input
+                  autoCapitalize="on"
+                  placeholder="Enter your first name and last name"
+                  $error={errors.fullName}
+                  value={fullName}
+                  onChange={(e) => handleOnChange(e.target.value, setFullName)}
+                />
               </InputContainer>
               <InputContainer>
                 <Label>Email</Label>
-                <Input placeholder="Your Email" />
+                <Input
+                  placeholder="Enter your email address"
+                  $error={errors.email}
+                  value={email}
+                  onChange={(e) => handleOnChange(e.target.value, setEmail)}
+                />
               </InputContainer>
               <InputContainer>
                 <Label>Your Message</Label>
-                <TextArea placeholder="Your Message" />
+                <TextArea
+                  placeholder="Enter your message here"
+                  $error={errors.message}
+                  value={message}
+                  onChange={(e) => handleOnChange(e.target.value, setMessage)}
+                />
               </InputContainer>
-              <Button>Send Message</Button>
+              <Button onClick={handleSubmit}>Send Message</Button>
             </Column>
           </ContactContent>
         </Content>

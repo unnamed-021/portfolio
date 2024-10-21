@@ -4,7 +4,6 @@ import {
   Title,
   Description,
   TitleWhite,
-  TitleContainer,
   Section,
   Row,
   SkillsContainer,
@@ -81,24 +80,6 @@ const SectionAbout = ({ aboutSectionRef }) => {
               </Skill>
               <SkillText>GitHub</SkillText>
             </SkillContainer>
-            {/* <SkillContainer>
-                  <Skill>
-                    <Sql width={36} height={36} />
-                  </Skill>
-                  <SkillText>MySQL</SkillText>
-                </SkillContainer> */}
-            {/* <SkillContainer>
-                  <Skill>
-                    <Node />
-                  </Skill>
-                  <SkillText>Node.js</SkillText>
-                </SkillContainer>
-                <SkillContainer>
-                  <Skill>
-                    <Mongodb />
-                  </Skill>
-                  <SkillText>MongoDB</SkillText>
-                </SkillContainer> */}
           </Skills>
         </SkillsContainer>
       </StyledTitleContainer>

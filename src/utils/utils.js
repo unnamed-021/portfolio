@@ -25,6 +25,9 @@ import Tb3 from "../assets/images/tb3.png";
 import Ns1 from "../assets/images/ns1.png";
 import Ns2 from "../assets/images/ns2.png";
 import Ns3 from "../assets/images/ns3.png";
+import Eyc1 from "../assets/images/eyc1.png";
+import Eyc2 from "../assets/images/eyc2.png";
+import Eyc3 from "../assets/images/eyc3.png";
 
 export const formatCartItems = (cartItems) => {
   return cartItems
@@ -171,5 +174,19 @@ export const projectData = [
     leftPhoto: Ns2,
     middlePhoto: Ns1,
     rightPhoto: Ns3,
+  },
+  {
+    id: 10,
+    title: "EyCrowd™",
+    link: "https://eycrowd.com/",
+    description:
+      "EyCrowd transforms traditional advertising by creating engaging, app-guided brand experiences that connect consumers with brands both in-person and online. Our fast-growing community helps businesses attract attention and build meaningful interactions.",
+    appStore: null,
+    googlePlay: null,
+    type: "web",
+    tag: "eycPortal",
+    leftPhoto: Eyc1,
+    middlePhoto: Eyc2,
+    rightPhoto: Eyc3,
   },
 ];

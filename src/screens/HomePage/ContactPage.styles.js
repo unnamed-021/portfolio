@@ -74,11 +74,15 @@ export const Input = styled.input`
   padding: 1rem 2rem;
   color: white;
   border-radius: 0.5rem;
-  border: 1px solid rgba(56, 224, 187);
   outline: none;
   background-color: transparent;
+  text-transform: ${(props) =>
+    props.$autoCapitalize ? "capitalize" : "default"};
   box-shadow: inset 0px 0px 4px 3px rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(13px);
+
+  border: ${(props) =>
+    props.$error ? "1px solid #FF4D4D" : "1px solid rgba(56, 224, 187)"};
 `;
 
 export const TextArea = styled.textarea`
@@ -89,7 +93,8 @@ export const TextArea = styled.textarea`
   padding: 1rem 2rem;
   color: white;
   border-radius: 0.5rem;
-  border: 1px solid rgba(56, 224, 187);
+  border: ${(props) =>
+    props.$error ? "1px solid #FF4D4D" : "1px solid rgba(56, 224, 187)"};
   outline: none;
   background-color: transparent;
   box-shadow: inset 0px 0px 4px 3px rgba(255, 255, 255, 0.25);
