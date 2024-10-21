@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Fragment, useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { Fragment } from "react";
 import GlobalStyles from "./styles/globalStyles";
-import SplashScreen from "./components/SplashScreen/SplashScreen";
 import HomePage from "./screens/HomePage/HomePage";
 import "react-toastify/dist/ReactToastify.css";
 import { ReactComponent as SuccessIcon } from "./assets/icons/success.svg";

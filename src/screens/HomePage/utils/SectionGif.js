@@ -14,7 +14,6 @@ import {
   Image,
 } from "../HomePage.styles";
 
-import GifMe from "../../../assets/animations/suGif2.gif";
 import MeEmoji from "../../../assets/images/me.png";
 
 import { ReactComponent as Linkedin } from "../../../assets/icons/linkedin.svg";
