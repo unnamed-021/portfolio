@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { CloseSvg, StyledIconContainer, Image } from "./ModalComponent.styles";
 import Modal from "./ModalMedia";
