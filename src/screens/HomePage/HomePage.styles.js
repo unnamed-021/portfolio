@@ -1,5 +1,6 @@
 import { css, keyframes, styled } from "styled-components";
 import Bg from "../../assets/images/bg.png";
+import { ReactComponent as Chevron } from "../../assets/icons/chevron.svg";
 
 const jumpFadeIn = keyframes`
   0% {
@@ -52,13 +53,66 @@ const fadeOut = keyframes`
 
   }
 `;
-export const Project = styled.div`
+export const IconContainer = styled.div`
+  display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: 3.2rem;
+  height: 3.2rem;
+  outline: 1px solid #8a4b5e15;
+  border-radius: ${(props) =>
+    props.$right ? "0px 20px 20px 0px" : "20px 0px 0px 20px"};
+  transition: all 0.3s ease-in-out;
+  opacity: 0.5;
+  z-index: 10;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.65);
+    opacity: 1;
+  }
+`;
+export const ChevronLeft = styled(Chevron)`
+  transform: scale(-1);
+  width: 2rem;
+  height: auto;
+  path {
+    fill: #aff3e4;
+  }
+`;
+export const ChevronRight = styled(Chevron)`
+  width: 2rem;
+  height: auto;
+  path {
+    fill: #aff3e4;
+  }
+`;
+export const IconsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  border-radius: 20px;
+  /* position: absolute; */
+  z-index: 501;
+  align-items: center;
+  /* top: 3rem;
+  right: 3rem; */
+  margin-bottom: 2rem;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15), 0px 2.5px 5px rgba(0, 0, 0, 0.2);
+`;
+
+export const Project = styled.div`
+  /* align-items: center; */
+  /* justify-content: center; */
   display: flex;
   width: 100%;
   gap: 2rem;
+  width: 91rem;
+
   flex-direction: column;
+  animation: ${(props) => (props.$show ? fadeIn : fadeIn)} 0.6s ease-in-out;
+  height: 90rem;
 `;
 export const Container = styled.div`
   display: flex;
@@ -122,6 +176,7 @@ export const TitleGradient = styled.div`
 export const Glow = styled.img`
   position: absolute;
   z-index: 0;
+  user-select: none;
   opacity: 0.75;
   pointer-events: none;
 
@@ -135,6 +190,7 @@ export const Relative = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   /* overflow: hidden; */
 `;
@@ -142,6 +198,7 @@ export const Relative = styled.div`
 export const Title = styled.div`
   font-size: 6rem;
   font-family: "Poppins-Bold";
+  user-select: none;
   user-select: none;
 
   background: linear-gradient(90deg, #aff3e4 0%, rgba(56, 224, 187, 1) 100%);
@@ -159,9 +216,25 @@ export const Title = styled.div`
 export const Description = styled.h3`
   font-size: 1.6rem;
   text-shadow: 0px 0px 5px black;
+  user-select: none;
   z-index: 2;
   font-family: "Poppins-Medium";
   color: white;
+  max-width: ${(props) => (props.$big ? "75rem" : "55rem")};
+  text-align: ${(props) => (props.$center ? "center" : "left")};
+  @media (max-width: 550px) {
+    font-size: 1rem;
+  }
+`;
+
+export const ProjectDescription = styled.h3`
+  font-size: 1.6rem;
+  text-shadow: 0px 0px 5px black;
+  z-index: 2;
+  user-select: none;
+  font-family: "Poppins-Medium";
+  color: white;
+
   max-width: ${(props) => (props.$big ? "75rem" : "55rem")};
   text-align: ${(props) => (props.$center ? "center" : "left")};
   @media (max-width: 550px) {
@@ -192,7 +265,7 @@ export const Gif = styled.img`
 
 export const ProgressContainer = styled.div`
   animation: ${(props) =>
-    props.show
+    props.$show
       ? css`
           ${fadeIn} 0.5s forwards
         `
@@ -200,10 +273,9 @@ export const ProgressContainer = styled.div`
           ${fadeOut} 0.5s forwards
         `};
 
-  position: fixed;
+  position: absolute;
   left: 5rem;
   top: 50%;
-
   transform: translateY(-50%);
   width: 3px;
   height: 100%;
@@ -223,8 +295,8 @@ export const Line = styled.div`
   width: 100%;
   height: 4rem;
 
-  background-color: ${({ active }) =>
-    active ? "#aff3e4" : "rgba(255,255,255,.25)"};
+  background-color: ${({ $active }) =>
+    $active ? "#aff3e4" : "rgba(255,255,255,.25)"};
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   transition: background-color 0.3s ease;
@@ -234,8 +306,29 @@ export const Dot = styled.div`
   margin-left: -4.5px;
   width: 12px;
   height: 12px;
-  background-color: ${({ active }) =>
-    active ? "#aff3e4" : "rgba(255,255,255,.25)"};
+  background-color: ${({ $active }) =>
+    $active ? "#aff3e4" : "rgba(255,255,255,.25)"};
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: background-color 0.3s ease;
+  border-radius: 50%;
+`;
+export const Dots = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  left: 0;
+`;
+export const Dot2 = styled.div`
+  margin-left: -4.5px;
+  width: 12px;
+  height: 12px;
+  background-color: ${(props) =>
+    props.$active ? "#aff3e4" : "rgba(255,255,255,0.25)"};
+
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   transition: background-color 0.3s ease;
@@ -308,7 +401,7 @@ export const TitleContainer = styled.div`
   align-items: flex-start;
   width: ${(props) => (props.$big ? "75rem" : "55rem")};
   width: 100%;
-  max-width: 75rem;
+  max-width: 91rem;
   margin-top: ${(props) => (props.$margin ? "15rem" : "0rem")};
   align-items: ${(props) => (props.$center ? "center" : "flex-start")};
 `;
@@ -438,6 +531,7 @@ export const Row = styled.div`
   margin-left: ${(props) => (props.$small ? "-6rem" : "0rem")};
 `;
 export const BrushImg = styled.img`
+  user-select: none;
   width: 5rem;
 `;
 
@@ -463,6 +557,7 @@ export const Section = styled.section`
   justify-content: ${(props) => (props.$center ? "center" : "flex-start")};
   height: 100%;
   padding-top: ${(props) => (props.$padding ? "5rem" : "0rem")};
+
   @media (max-width: 1500px) {
     min-height: 100%;
   }
@@ -509,41 +604,50 @@ export const StyledPhoneImg = styled(PhoneImg)`
   width: 22rem;
   cursor: pointer;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
-  transition: all 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+
   margin-right: ${(props) => (props.$right ? "-10rem" : "0rem")};
   margin-left: ${(props) => (props.$left ? "-10rem" : "0rem")};
   transform: ${(props) => (props.$right ? "rotate(-12deg)" : "rotate(12deg)")};
-
+  z-index: 5;
   &:hover {
     transform: rotate(0deg) !important;
     width: 26rem !important;
-    margin-right: ${(props) => (!props.$right ? "34rem !important" : "0rem")};
-    margin-left: ${(props) => (!props.$left ? "34rem !important" : "0rem")};
+    z-index: 10;
+    /* margin-right: ${(props) =>
+      !props.$right ? "34rem !important" : "0rem"};
+    margin-left: ${(props) => (!props.$left ? "34rem !important" : "0rem")}; */
   }
 
   @media (max-width: 800px) {
     &:hover {
       transform: rotate(0deg) !important;
+      z-index: 10;
       width: 22rem !important;
-      margin-right: ${(props) => (!props.$right ? "28rem !important" : "0rem")};
-      margin-left: ${(props) => (!props.$left ? "28rem !important" : "0rem")};
+      /* margin-right: ${(props) =>
+        !props.$right ? "28rem !important" : "0rem"};
+      margin-left: ${(props) =>
+        !props.$left ? "28rem !important" : "0rem"}; */
     }
     width: 20rem !important;
-    margin-right: ${(props) => (props.$right ? "-14rem" : "0rem")};
-    margin-left: ${(props) => (props.$left ? "-14rem" : "0rem")};
+    /* margin-right: ${(props) => (props.$right ? "-14rem" : "0rem")};
+    margin-left: ${(props) => (props.$left ? "-14rem" : "0rem")}; */
     transform: ${(props) =>
       props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
   }
   @media (max-width: 400px) {
     &:hover {
       transform: rotate(0deg) !important;
+      z-index: 10;
       width: 20rem !important;
-      margin-right: ${(props) => (!props.$right ? "26rem !important" : "0rem")};
-      margin-left: ${(props) => (!props.$left ? "26rem !important" : "0rem")};
+      /* margin-right: ${(props) =>
+        !props.$right ? "26rem !important" : "0rem"};
+      margin-left: ${(props) =>
+        !props.$left ? "26rem !important" : "0rem"}; */
     }
     width: 18rem !important;
-    margin-right: ${(props) => (props.$right ? "-12rem" : "0rem")};
-    margin-left: ${(props) => (props.$left ? "-12rem" : "0rem")};
+    /* margin-right: ${(props) => (props.$right ? "-12rem" : "0rem")};
+    margin-left: ${(props) => (props.$left ? "-12rem" : "0rem")}; */
     transform: ${(props) =>
       props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
   }
@@ -554,6 +658,7 @@ export const WebImg = styled.img`
   cursor: pointer;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
   transition: all 0.3s ease-in-out;
+  z-index: 5;
 
   @media (max-width: 800px) {
     width: 34rem !important;
@@ -565,37 +670,44 @@ export const StyledWebImg = styled(WebImg)`
   width: 34rem;
   cursor: pointer;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
-  transition: all 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
   margin-right: ${(props) => (props.$right ? "-22rem" : "0rem")};
   margin-left: ${(props) => (props.$left ? "-22rem" : "0rem")};
   transform: ${(props) => (props.$right ? "rotate(-12deg)" : "rotate(12deg)")};
+  z-index: 5;
 
   &:hover {
     transform: rotate(0deg) !important;
     width: 54rem !important;
-    margin-right: ${(props) => (!props.$right ? "46rem !important" : "0rem")};
-    margin-left: ${(props) => (!props.$left ? "46rem !important" : "0rem")};
+    z-index: 10;
+    /* margin-right: ${(props) =>
+      !props.$right ? "46rem !important" : "0rem"};
+    margin-left: ${(props) => (!props.$left ? "46rem !important" : "0rem")}; */
   }
   @media (max-width: 800px) {
     &:hover {
+      z-index: 10;
       transform: rotate(0deg) !important;
       width: 34rem !important;
-      margin-right: ${(props) => (!props.$right ? "40rem !important" : "0rem")};
-      margin-left: ${(props) => (!props.$left ? "40rem !important" : "0rem")};
+      /* margin-right: ${(props) =>
+        !props.$right ? "40rem !important" : "0rem"};
+      margin-left: ${(props) =>
+        !props.$left ? "40rem !important" : "0rem"}; */
     }
     width: 24rem !important;
-    margin-right: ${(props) => (props.$right ? "-18rem" : "0rem")};
-    margin-left: ${(props) => (props.$left ? "-18rem" : "0rem")};
+    /* margin-right: ${(props) => (props.$right ? "-18rem" : "0rem")};
+    margin-left: ${(props) => (props.$left ? "-18rem" : "0rem")}; */
     transform: ${(props) =>
       props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
   }
 
   @media (max-width: 480px) {
     transform: rotate(0deg);
-    margin-left: 0rem !important;
+    z-index: 10;
+    /* margin-left: 0rem !important;
     margin-right: 0rem !important;
     margin-top: ${(props) => (!props.$right ? "-5rem" : "0rem")};
-    margin-bottom: ${(props) => (!props.$left ? "-5rem" : "0rem")};
+    margin-bottom: ${(props) => (!props.$left ? "-5rem" : "0rem")}; */
   }
 `;
 
@@ -604,7 +716,7 @@ export const PhonesContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-height: 651px;
+  min-height: 50rem;
   z-index: 9;
   @media (max-width: 800px) {
     margin: 5rem 0rem;
@@ -617,16 +729,24 @@ export const WebContainer = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 9;
-
-  margin: 5rem 0rem;
-  min-height: 353px;
+  min-height: 32rem;
 
   @media (max-width: 800px) {
+    margin: 5rem 0rem;
     min-height: 100%;
   }
   @media (max-width: 480px) {
     flex-direction: column;
   }
+`;
+export const ProjectColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
 `;
 
 export const ProjectTitle = styled.span`
@@ -661,6 +781,7 @@ export const ProjectsContainer = styled.div`
   /* gap: 2rem; */
   margin-top: 10rem;
   width: 100%;
+  position: relative;
   align-items: center;
 `;
 
@@ -680,7 +801,7 @@ export const GoToTop = styled.div`
   transition: all 0.3s ease-in-out;
   opacity: 0.5;
   display: flex;
-  animation: ${({ show }) => (show ? jumpFadeIn : jumpFadeOut)} 0.5s forwards;
+  animation: ${({ $show }) => ($show ? jumpFadeIn : jumpFadeOut)} 0.5s forwards;
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.25);
   &:hover {
     opacity: 1 !important;

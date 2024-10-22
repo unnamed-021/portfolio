@@ -15,7 +15,7 @@ import { ReactComponent as Linkedin } from "../../assets/icons/linkedin.svg";
 import { ReactComponent as Call } from "../../assets/icons/call.svg";
 import { ReactComponent as Git } from "../../assets/icons/git.svg";
 
-const Footer = ({ hide, setShowContact }) => {
+const Footer = ({ hide, setShowContact, setErrors }) => {
   return (
     <Div>
       {!hide && (
@@ -27,6 +27,7 @@ const Footer = ({ hide, setShowContact }) => {
           <Button
             onClick={() => {
               setShowContact(true);
+              setErrors({});
             }}
           >
             Contact

@@ -130,6 +130,7 @@ const HomePage = () => {
         setShowContact={setShowContact}
         showContact={showContact}
         onContactClick={() => setShowContact(true)}
+        setErrors={setErrors}
       />
       {!isVisible ? (
         <Content $show={!showContact}>
@@ -178,8 +179,12 @@ const HomePage = () => {
           </ContactContent>
         </Content>
       )}
-      <Footer hide={showContact} setShowContact={setShowContact} />
-      <GoToTop show={showGoToTop} onClick={goToTop}>
+      <Footer
+        hide={showContact}
+        setShowContact={setShowContact}
+        setErrors={setErrors}
+      />
+      <GoToTop $show={showGoToTop} onClick={goToTop}>
         <Top />
       </GoToTop>
     </Container>

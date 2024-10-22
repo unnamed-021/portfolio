@@ -24,6 +24,12 @@ import {
   Project,
   Line,
   Progress,
+  IconsContainer,
+  IconContainer,
+  ChevronLeft,
+  ChevronRight,
+  ProjectDescription,
+  ProjectColumn,
 } from "../HomePage.styles";
 
 import Brush from "../../../assets/images/brush.png";
@@ -37,75 +43,8 @@ const SectionProjects = ({ projectsSectionRef }) => {
   const [hoverStates, setHoverStates] = useState({});
   const [mediaUrl, setMediaUrl] = useState("");
   const [openMediaModal, setOpenMediaModal] = useState(false);
-  const [activeDot, setActiveDot] = useState(0);
-  const [showProgress, setShowProgress] = useState(false);
+  const [currentProject, setCurrentProject] = useState(0);
   const projectsRef = useRef([]);
-  const observer = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(null);
-
-  useEffect(() => {
-    if (observer.current) {
-      observer.current.disconnect();
-    }
-
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
-
-    const handleIntersection = (entries) => {
-      let newActiveDot = 0;
-      let shouldShowProgress = false;
-
-      // Check visibility of each project
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const index = projectsRef.current.indexOf(entry.target);
-          setCurrentIndex(index);
-          if (index >= 0) {
-            newActiveDot = index + 1;
-            shouldShowProgress = true;
-          }
-        }
-      });
-
-      // Check if all dots are inactive
-      const allInactive = newActiveDot === 0;
-
-      // Only update state if there's a change
-      if (shouldShowProgress || !allInactive) {
-        setActiveDot(newActiveDot);
-        setShowProgress(!allInactive);
-      } else if (allInactive && showProgress) {
-        // setShowProgress(false);
-      }
-    };
-
-    observer.current = new IntersectionObserver(handleIntersection, options);
-
-    projectsRef.current.forEach((ref) => {
-      if (ref) observer.current.observe(ref);
-    });
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [showProgress]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY === 0) {
-        setShowProgress(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const handleClick = (link) => {
     window.open(link, "_blank");
@@ -118,27 +57,33 @@ const SectionProjects = ({ projectsSectionRef }) => {
     }));
   };
 
+  const handleNext = () => {
+    setCurrentProject((prevIndex) =>
+      prevIndex === projectData.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrev = () => {
+    setCurrentProject((prevIndex) =>
+      prevIndex === 0 ? projectData.length - 1 : prevIndex - 1
+    );
+  };
+
   useEffect(() => {
-    if (currentIndex === 0) {
-      setTimeout(() => {
-        setShowProgress(false);
-      }, 1000);
-    }
-  }, [currentIndex]);
+    const interval = setInterval(() => {
+      handleNext();
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <Section $padding ref={projectsSectionRef} $center>
-      <ProgressContainer show={showProgress}>
-        <Progress>
-          {projectData.map((_, i) => (
-            <Fragment key={i}>
-              {i > 0 && <Line active={i < activeDot} />}
-              <Dot active={i < activeDot} />
-            </Fragment>
-          ))}
-        </Progress>
-      </ProgressContainer>
-
+    <Section
+      $padding
+      ref={projectsSectionRef}
+      $center
+      style={{ marginBottom: -50 }}
+    >
       <TitleContainer $big $center>
         <Row>
           <TitleWhite>My</TitleWhite>
@@ -152,40 +97,54 @@ const SectionProjects = ({ projectsSectionRef }) => {
         </Description>
       </TitleContainer>
       <ProjectsContainer>
+        <IconsContainer>
+          <IconContainer onClick={handlePrev}>
+            <ChevronLeft />
+          </IconContainer>
+          <IconContainer $right onClick={handleNext}>
+            <ChevronRight />
+          </IconContainer>
+        </IconsContainer>
+
         {projectData.map((project, index) => {
           const isHovered = hoverStates[project.tag];
+          if (index !== currentProject) return null;
 
           return project.type === "app" ? (
             <Project
               key={index}
               ref={(el) => (projectsRef.current[index] = el)}
             >
-              <ProjectsRow $offHover={!project.link}>
-                <BrushImg src={Brush} width={50} />
-                <ProjectTitle
-                  onClick={() => {
-                    if (project.link) {
-                      handleClick(project.link);
-                    }
-                  }}
-                  $offHover={!project.link}
-                >
-                  {project.title}
-                </ProjectTitle>
-              </ProjectsRow>
-              <Description $center>{project.description}</Description>
-              {project.appStore && project.googlePlay && (
-                <Row>
-                  <StoreImg
-                    src={AppStore}
-                    onClick={() => handleClick(project.appStore)}
-                  />
-                  <StoreImg
-                    src={GooglePlay}
-                    onClick={() => handleClick(project.googlePlay)}
-                  />
-                </Row>
-              )}
+              <ProjectColumn>
+                <ProjectsRow $offHover={!project.link}>
+                  <BrushImg src={Brush} width={50} />
+                  <ProjectTitle
+                    onClick={() => {
+                      if (project.link) {
+                        handleClick(project.link);
+                      }
+                    }}
+                    $offHover={!project.link}
+                  >
+                    {project.title}
+                  </ProjectTitle>
+                </ProjectsRow>
+                <ProjectDescription $center>
+                  {project.description}
+                </ProjectDescription>
+                {project.appStore && project.googlePlay && (
+                  <Row>
+                    <StoreImg
+                      src={AppStore}
+                      onClick={() => handleClick(project.appStore)}
+                    />
+                    <StoreImg
+                      src={GooglePlay}
+                      onClick={() => handleClick(project.googlePlay)}
+                    />
+                  </Row>
+                )}
+              </ProjectColumn>
               <Relative>
                 <PhonesContainer>
                   <StyledPhoneImg
@@ -205,7 +164,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                       setOpenMediaModal(true);
                     }}
                     style={{
-                      zIndex: 10,
+                      zIndex: 9,
                       width: isHovered ? 220 : 260,
                     }}
                   />
@@ -225,23 +184,26 @@ const SectionProjects = ({ projectsSectionRef }) => {
             </Project>
           ) : (
             <Project
+              $show={index === currentProject}
               key={index}
               ref={(el) => (projectsRef.current[index] = el)}
             >
-              <ProjectsRow $offHover={!project.link}>
-                <BrushImg src={Brush} width={50} />
-                <ProjectTitle
-                  onClick={() => {
-                    if (project.link) {
-                      handleClick(project.link);
-                    }
-                  }}
-                  $offHover={!project.link}
-                >
-                  {project.title}
-                </ProjectTitle>
-              </ProjectsRow>
-              <Description $center>{project.description}</Description>
+              <ProjectColumn>
+                <ProjectsRow $offHover={!project.link}>
+                  <BrushImg src={Brush} width={50} />
+                  <ProjectTitle
+                    onClick={() => {
+                      if (project.link) {
+                        handleClick(project.link);
+                      }
+                    }}
+                    $offHover={!project.link}
+                  >
+                    {project.title}
+                  </ProjectTitle>
+                </ProjectsRow>
+                <Description $center>{project.description}</Description>
+              </ProjectColumn>
               <Relative>
                 <WebContainer>
                   <StyledWebImg
@@ -261,7 +223,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                       setOpenMediaModal(true);
                     }}
                     style={{
-                      zIndex: 10,
+                      zIndex: 9,
                       width: isHovered ? 340 : 540,
                     }}
                   />
@@ -281,6 +243,17 @@ const SectionProjects = ({ projectsSectionRef }) => {
             </Project>
           );
         })}
+
+        <ProgressContainer $show>
+          <Progress>
+            {projectData.map((dot, i) => (
+              <Fragment key={i}>
+                {i > 0 && <Line $active={i <= currentProject} />}
+                <Dot $active={i <= currentProject} />
+              </Fragment>
+            ))}
+          </Progress>
+        </ProgressContainer>
       </ProjectsContainer>
       <MediaModal
         open={openMediaModal}

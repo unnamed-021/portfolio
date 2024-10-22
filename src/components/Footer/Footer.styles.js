@@ -31,7 +31,7 @@ export const Title = styled.span`
 export const Div = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 75rem;
+  max-width: 91rem;
   width: 100%;
   @media (max-width: 800px) {
     max-width: 100%;

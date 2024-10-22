@@ -18,6 +18,7 @@ const Header = ({
   setShowContact,
   onContactClick,
   showContact,
+  setErrors,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(menuOpen);
@@ -103,6 +104,7 @@ const Header = ({
             window.scrollTo(0, 0);
             onContactClick();
             setMenuOpen(false);
+            setErrors({});
           }}
         >
           Contact
@@ -161,6 +163,7 @@ const Header = ({
               window.scrollTo(0, 0);
               onContactClick();
               setAnimation(false);
+              setErrors({});
             }}
           >
             Contact
