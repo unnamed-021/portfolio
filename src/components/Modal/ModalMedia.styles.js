@@ -77,12 +77,21 @@ export const ModalContentFade = styled.div`
 
   border-radius: 1rem;
   display: flex;
-  width: auto;
-  height: 80%;
+  width: ${(props) => (props.$phone ? "auto" : "80%")};
+  height: ${(props) => (props.$phone ? "80%" : "auto")};
 
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   animation: ${(props) => (props.$open ? scaleIn : scaleOut)} 0.3s ease-in-out;
 
   flex-shrink: 0;
+  @media (max-width: 1500px) {
+    width: ${(props) => (props.$phone ? "auto" : "100%")};
+    height: ${(props) => (props.$phone ? "80%" : "auto")};
+  }
+  @media (max-width: 550px) {
+    width: 100%;
+    height: ${(props) => (props.$phone ? "80%" : "auto")};
+  }
 `;

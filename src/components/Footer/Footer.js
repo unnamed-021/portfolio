@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FooterContainer,
   TitleContainer,
@@ -16,10 +16,23 @@ import { ReactComponent as Call } from "../../assets/icons/call.svg";
 import { ReactComponent as Git } from "../../assets/icons/git.svg";
 
 const Footer = ({ hide, setShowContact, setErrors }) => {
+  const [isVisible, setIsVisible] = useState(hide);
+
+  useEffect(() => {
+    let timer;
+    if (hide) {
+      setIsVisible(true);
+    } else {
+      timer = setTimeout(() => setIsVisible(false), 250);
+    }
+
+    return () => clearTimeout(timer);
+  }, [hide]);
+
   return (
     <Div>
-      {!hide && (
-        <ContactContainer>
+      {!isVisible && (
+        <ContactContainer $show={!hide}>
           <TitleContainer>
             <Title>Have a project in mind?</Title>
             <Title>Lets work together!</Title>

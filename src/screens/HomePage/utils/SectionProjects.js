@@ -32,19 +32,22 @@ import {
   ProjectColumn,
 } from "../HomePage.styles";
 
+import { projectData } from "../../../utils/utils";
+
 import Brush from "../../../assets/images/brush.png";
 import AppStore from "../../../assets/images/appstore.png";
 import GooglePlay from "../../../assets/images/googlePlay.png";
 import GlowPng from "../../../assets/images/glow.png";
 import MediaModal from "../../../components/Modal/MediaModal";
-import { projectData } from "../../../utils/utils";
 
 const SectionProjects = ({ projectsSectionRef }) => {
   const [hoverStates, setHoverStates] = useState({});
   const [mediaUrl, setMediaUrl] = useState("");
+  const [type, setType] = useState("");
   const [openMediaModal, setOpenMediaModal] = useState(false);
   const [currentProject, setCurrentProject] = useState(0);
   const projectsRef = useRef([]);
+  const intervalRef = useRef(null);
 
   const handleClick = (link) => {
     window.open(link, "_blank");
@@ -61,20 +64,35 @@ const SectionProjects = ({ projectsSectionRef }) => {
     setCurrentProject((prevIndex) =>
       prevIndex === projectData.length - 1 ? 0 : prevIndex + 1
     );
+    resetInterval();
   };
 
   const handlePrev = () => {
     setCurrentProject((prevIndex) =>
       prevIndex === 0 ? projectData.length - 1 : prevIndex - 1
     );
+    resetInterval();
+  };
+
+  const resetInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(() => {
+      setCurrentProject((prevIndex) =>
+        prevIndex === projectData.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 10000);
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 10000);
+    resetInterval();
 
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -154,6 +172,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                     onMouseEnter={() => handleHover(project.tag, true)}
                     onClick={() => {
                       setMediaUrl(project.leftPhoto);
+                      setType("mobile");
                       setOpenMediaModal(true);
                     }}
                   />
@@ -161,6 +180,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                     src={project.middlePhoto}
                     onClick={() => {
                       setMediaUrl(project.middlePhoto);
+                      setType("mobile");
                       setOpenMediaModal(true);
                     }}
                     style={{
@@ -173,6 +193,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                     src={project.rightPhoto}
                     onClick={() => {
                       setMediaUrl(project.rightPhoto);
+                      setType("mobile");
                       setOpenMediaModal(true);
                     }}
                     onMouseLeave={() => handleHover(project.tag, false)}
@@ -213,6 +234,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                     src={project.leftPhoto}
                     onClick={() => {
                       setMediaUrl(project.leftPhoto);
+                      setType("web");
                       setOpenMediaModal(true);
                     }}
                   />
@@ -220,6 +242,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                     src={project.middlePhoto}
                     onClick={() => {
                       setMediaUrl(project.middlePhoto);
+                      setType("web");
                       setOpenMediaModal(true);
                     }}
                     style={{
@@ -232,6 +255,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
                     src={project.rightPhoto}
                     onClick={() => {
                       setMediaUrl(project.rightPhoto);
+                      setType("web");
                       setOpenMediaModal(true);
                     }}
                     onMouseLeave={() => handleHover(project.tag, false)}
@@ -258,6 +282,7 @@ const SectionProjects = ({ projectsSectionRef }) => {
       <MediaModal
         open={openMediaModal}
         onClose={() => setOpenMediaModal(false)}
+        type={type}
         mediaUrl={mediaUrl}
       />
     </Section>

@@ -9,8 +9,8 @@ import {
   StyledNavLinks,
 } from "./Header.styles";
 
-import Menu from "../utils/Menu";
 import { ReactComponent as Code } from "../../assets/icons/code.svg";
+import Menu from "../utils/Menu";
 
 const Header = ({
   onAboutClick,

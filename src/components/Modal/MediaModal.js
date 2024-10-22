@@ -1,9 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import { CloseSvg, StyledIconContainer, Image } from "./ModalComponent.styles";
+import {
+  CloseSvg,
+  StyledIconContainer,
+  Image,
+  Relative,
+} from "./ModalComponent.styles";
 import Modal from "./ModalMedia";
 
-const MediaModal = ({ open, onClose, mediaUrl }) => {
+const MediaModal = ({ open, onClose, mediaUrl, type }) => {
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       onClose();
@@ -19,11 +24,13 @@ const MediaModal = ({ open, onClose, mediaUrl }) => {
   }, [handleKeyDown]);
 
   return (
-    <Modal isOpen={open} onClose={onClose}>
-      <StyledIconContainer onClick={onClose}>
-        <CloseSvg />
-      </StyledIconContainer>
-      <Image src={mediaUrl} />
+    <Modal isOpen={open} onClose={onClose} phone={type === "mobile"}>
+      <Relative>
+        <StyledIconContainer onClick={onClose}>
+          <CloseSvg />
+        </StyledIconContainer>
+        <Image src={mediaUrl} />
+      </Relative>
     </Modal>
   );
 };

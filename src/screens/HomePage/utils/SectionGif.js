@@ -12,6 +12,7 @@ import {
   StyledImage,
   ImageDiv,
   Image,
+  StyledImageDiv,
 } from "../HomePage.styles";
 
 import MeEmoji from "../../../assets/images/me.png";
@@ -23,10 +24,10 @@ import { ReactComponent as Git } from "../../../assets/icons/git.svg";
 const SectionGif = () => {
   return (
     <Section $center>
-      {/* <Gif src={GifMe} alt="GIF" /> */}
-
       <HeaderRow>
-        <StyledImage src={MeEmoji} alt="MeEmoji" />
+        <StyledImageDiv>
+          <StyledImage src={MeEmoji} alt="MeEmoji" />
+        </StyledImageDiv>
         <TitleContainer>
           <Title>Frontend</Title>
           <TitleWhite $margin>Developer👋🏻</TitleWhite>

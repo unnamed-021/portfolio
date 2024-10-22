@@ -53,6 +53,7 @@ const fadeOut = keyframes`
 
   }
 `;
+
 export const IconContainer = styled.div`
   display: flex;
   align-items: center;
@@ -113,6 +114,9 @@ export const Project = styled.div`
   flex-direction: column;
   animation: ${(props) => (props.$show ? fadeIn : fadeIn)} 0.6s ease-in-out;
   height: 90rem;
+  @media (max-width: 950px) {
+    width: 100%;
+  }
 `;
 export const Container = styled.div`
   display: flex;
@@ -223,7 +227,8 @@ export const Description = styled.h3`
   max-width: ${(props) => (props.$big ? "75rem" : "55rem")};
   text-align: ${(props) => (props.$center ? "center" : "left")};
   @media (max-width: 550px) {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    max-width: 100%;
   }
 `;
 
@@ -242,6 +247,18 @@ export const ProjectDescription = styled.h3`
   }
 `;
 export const TitleWhite = styled.h3`
+  user-select: none;
+  font-size: 6rem;
+  position: relative;
+  font-family: "Poppins-Bold";
+  color: white;
+  margin-top: ${(props) => (props.$margin ? "-3rem" : "0rem")};
+  @media (max-width: 550px) {
+    font-size: 3rem;
+    margin-top: ${(props) => (props.$margin ? "-1rem" : "0rem")};
+  }
+`;
+export const StyledTitleWhite = styled.h3`
   user-select: none;
   font-size: 6rem;
   position: relative;
@@ -280,8 +297,13 @@ export const ProgressContainer = styled.div`
   width: 3px;
   height: 100%;
   z-index: 999;
-  @media (max-width: 630px) {
-    display: none;
+  @media (max-width: 650px) {
+    left: 50%;
+    top: unset;
+    transform: translateX(-50%);
+    bottom: 0;
+    height: unset;
+    width: 100%;
   }
 `;
 export const Progress = styled.div`
@@ -290,6 +312,11 @@ export const Progress = styled.div`
   height: 100%;
   flex-direction: column;
   justify-content: center;
+  @media (max-width: 650px) {
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 export const Line = styled.div`
   width: 100%;
@@ -300,18 +327,27 @@ export const Line = styled.div`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   transition: background-color 0.3s ease;
+  @media (max-width: 650px) {
+    width: 4rem;
+    height: 0.5rem;
+  }
 `;
 
 export const Dot = styled.div`
   margin-left: -4.5px;
-  width: 12px;
-  height: 12px;
+  min-width: 12px;
+  max-width: 12px;
+  min-height: 12px;
+  max-height: 12px;
   background-color: ${({ $active }) =>
     $active ? "#aff3e4" : "rgba(255,255,255,.25)"};
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   transition: background-color 0.3s ease;
   border-radius: 50%;
+  @media (max-width: 650px) {
+    margin-left: 0px;
+  }
 `;
 export const Dots = styled.div`
   display: flex;
@@ -355,34 +391,33 @@ export const ImageDiv = styled.div`
     display: none;
   }
 `;
-
-export const StyledImage = styled.img`
+export const StyledImageDiv = styled(ImageDiv)`
   display: none;
-  align-items: center;
-  justify-content: center;
-  max-width: 35rem;
-  max-height: 35rem;
 
-  background: linear-gradient(90deg, #aff3e4 0%, rgba(56, 224, 187, 1) 100%);
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: inset 0px 0px 25px 10px #aff3e4;
-  box-shadow: 0px 0px 25px 10px #0008;
   @media (max-width: 950px) {
     display: flex;
-    max-width: 25rem;
-    margin-bottom: 5rem;
-    max-height: 25rem;
+    margin-right: 0;
   }
   @media (max-width: 550px) {
+    min-width: 20rem;
     max-width: 20rem;
+    min-height: 20rem;
     max-height: 20rem;
-    margin-bottom: 3rem;
   }
-  @media (max-width: 420px) {
-    max-width: 15rem;
-    margin-bottom: 2rem;
-    max-height: 15rem;
+  @media (max-width: 400px) {
+    margin-top: -5rem;
+  }
+`;
+
+export const StyledImage = styled(Image)`
+  display: none;
+
+  @media (max-width: 950px) {
+    display: flex;
+  }
+  @media (max-width: 550px) {
+    width: 25rem;
+    height: 25rem;
   }
 `;
 
@@ -440,6 +475,10 @@ export const Skills = styled.div`
 
   gap: 5rem;
   margin: 2.5rem 0rem;
+  @media (max-width: 450px) {
+    gap: 3rem;
+    justify-content: space-around;
+  }
 `;
 
 export const SkillText = styled.span`
@@ -500,7 +539,9 @@ export const ProjectsRow = styled.div`
     scale: ${(props) => (props.$offHover ? 1 : 1.025)};
   }
   transition: scale 0.3s ease-in-out;
-  /* margin-left: ${(props) => (props.$small ? "-6rem" : "0rem")}; */
+  @media (max-width: 350px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const HeaderRow = styled.div`
@@ -529,10 +570,24 @@ export const Row = styled.div`
   align-items: center;
   gap: 1rem;
   margin-left: ${(props) => (props.$small ? "-6rem" : "0rem")};
+  flex-wrap: wrap;
+  @media (max-width: 350px) {
+    justify-content: center;
+  }
+`;
+export const TitleRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 `;
 export const BrushImg = styled.img`
   user-select: none;
   width: 5rem;
+  @media (max-width: 450px) {
+    display: none;
+  }
 `;
 
 export const Icons = styled.div`
@@ -610,46 +665,33 @@ export const StyledPhoneImg = styled(PhoneImg)`
   margin-left: ${(props) => (props.$left ? "-10rem" : "0rem")};
   transform: ${(props) => (props.$right ? "rotate(-12deg)" : "rotate(12deg)")};
   z-index: 5;
+
   &:hover {
     transform: rotate(0deg) !important;
     width: 26rem !important;
     z-index: 10;
-    /* margin-right: ${(props) =>
-      !props.$right ? "34rem !important" : "0rem"};
-    margin-left: ${(props) => (!props.$left ? "34rem !important" : "0rem")}; */
   }
 
   @media (max-width: 800px) {
+    width: 20rem !important;
+    transform: ${(props) =>
+      props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
     &:hover {
       transform: rotate(0deg) !important;
       z-index: 10;
       width: 22rem !important;
-      /* margin-right: ${(props) =>
-        !props.$right ? "28rem !important" : "0rem"};
-      margin-left: ${(props) =>
-        !props.$left ? "28rem !important" : "0rem"}; */
     }
-    width: 20rem !important;
-    /* margin-right: ${(props) => (props.$right ? "-14rem" : "0rem")};
-    margin-left: ${(props) => (props.$left ? "-14rem" : "0rem")}; */
+  }
+
+  @media (max-width: 400px) {
+    width: 18rem !important;
     transform: ${(props) =>
       props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
-  }
-  @media (max-width: 400px) {
     &:hover {
       transform: rotate(0deg) !important;
       z-index: 10;
       width: 20rem !important;
-      /* margin-right: ${(props) =>
-        !props.$right ? "26rem !important" : "0rem"};
-      margin-left: ${(props) =>
-        !props.$left ? "26rem !important" : "0rem"}; */
     }
-    width: 18rem !important;
-    /* margin-right: ${(props) => (props.$right ? "-12rem" : "0rem")};
-    margin-left: ${(props) => (props.$left ? "-12rem" : "0rem")}; */
-    transform: ${(props) =>
-      props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
   }
 `;
 export const WebImg = styled.img`
@@ -660,14 +702,14 @@ export const WebImg = styled.img`
   transition: all 0.3s ease-in-out;
   z-index: 5;
 
-  @media (max-width: 800px) {
-    width: 34rem !important;
+  @media (max-width: 1070px) {
+    width: 40rem !important;
   }
 `;
 
 export const StyledWebImg = styled(WebImg)`
   user-select: none;
-  width: 34rem;
+  width: 40rem;
   cursor: pointer;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
   transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
@@ -680,34 +722,26 @@ export const StyledWebImg = styled(WebImg)`
     transform: rotate(0deg) !important;
     width: 54rem !important;
     z-index: 10;
-    /* margin-right: ${(props) =>
-      !props.$right ? "46rem !important" : "0rem"};
-    margin-left: ${(props) => (!props.$left ? "46rem !important" : "0rem")}; */
   }
-  @media (max-width: 800px) {
+
+  @media (max-width: 1070px) {
+    width: 30rem !important;
+    transform: ${(props) =>
+      props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
+
     &:hover {
       z-index: 10;
       transform: rotate(0deg) !important;
-      width: 34rem !important;
-      /* margin-right: ${(props) =>
-        !props.$right ? "40rem !important" : "0rem"};
-      margin-left: ${(props) =>
-        !props.$left ? "40rem !important" : "0rem"}; */
+      width: 40rem !important;
     }
-    width: 24rem !important;
-    /* margin-right: ${(props) => (props.$right ? "-18rem" : "0rem")};
-    margin-left: ${(props) => (props.$left ? "-18rem" : "0rem")}; */
-    transform: ${(props) =>
-      props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
   }
 
-  @media (max-width: 480px) {
-    transform: rotate(0deg);
-    z-index: 10;
-    /* margin-left: 0rem !important;
-    margin-right: 0rem !important;
+  @media (max-width: 700px) {
+    margin-left: 0;
+    margin-right: 0;
     margin-top: ${(props) => (!props.$right ? "-5rem" : "0rem")};
-    margin-bottom: ${(props) => (!props.$left ? "-5rem" : "0rem")}; */
+    margin-bottom: ${(props) => (!props.$left ? "-5rem" : "0rem")};
+    transform: rotate(0deg);
   }
 `;
 
@@ -723,6 +757,7 @@ export const PhonesContainer = styled.div`
     min-height: 100%;
   }
 `;
+
 export const WebContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -735,7 +770,7 @@ export const WebContainer = styled.div`
     margin: 5rem 0rem;
     min-height: 100%;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 700px) {
     flex-direction: column;
   }
 `;
@@ -747,6 +782,9 @@ export const ProjectColumn = styled.div`
   align-items: center;
   justify-content: center;
   /* background-color: red; */
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const ProjectTitle = styled.span`
@@ -772,6 +810,8 @@ export const ProjectTitle = styled.span`
   }
   @media (max-width: 550px) {
     font-size: 3rem;
+    line-height: 3.5rem;
+    margin-bottom: 1rem;
   }
 `;
 

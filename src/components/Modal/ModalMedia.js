@@ -5,7 +5,7 @@ import {
   ModalContentFade,
 } from "./ModalMedia.styles";
 
-const ModalMedia = ({ isOpen, children }) => {
+const ModalMedia = ({ isOpen, children, phone }) => {
   const [isVisible, setIsVisible] = useState(isOpen);
 
   useEffect(() => {
@@ -32,7 +32,9 @@ const ModalMedia = ({ isOpen, children }) => {
     isVisible && (
       <ModalBackground $open={isOpen}>
         <ModalContainer $center>
-          <ModalContentFade $open={isOpen}>{children}</ModalContentFade>
+          <ModalContentFade $open={isOpen} $phone={phone}>
+            {children}
+          </ModalContentFade>
         </ModalContainer>
       </ModalBackground>
     )

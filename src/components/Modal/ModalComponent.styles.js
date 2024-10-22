@@ -39,6 +39,9 @@ export const XIcon = styled(Close)`
   }
 `;
 
+export const Relative = styled.div`
+  position: relative;
+`;
 export const ModalButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -407,8 +410,15 @@ export const StyledIconContainer = styled.div`
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: absolute;
-  right: 2rem;
-  top: 2rem;
+  top: -5rem;
+  left: 50%;
+  right: unset;
+  transform: translateX(-50%);
+
+  @media (max-width: 600px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 export const IconContainer = styled.div`
   display: flex;
@@ -435,6 +445,10 @@ export const CloseSvg = styled(Close)`
     path {
       stroke: rgba(56, 224, 187, 1);
     }
+  }
+  @media (max-width: 600px) {
+    width: 20px;
+    height: 20px;
   }
 `;
 
@@ -466,6 +480,7 @@ export const Image = styled.img`
   object-fit: contain;
   height: 100%;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
+  width: 100%;
 `;
 export const Video = styled.video`
   width: 100%;

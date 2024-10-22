@@ -1,6 +1,28 @@
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import { ReactComponent as InstaSvg } from "../../assets/icons/instagram.svg";
 import { ReactComponent as MailSvg } from "../../assets/icons/mail.svg";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+
+  }
+  to {
+    opacity: 1;
+
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+
+  }
+  to {
+    opacity: 0;
+
+  }
+`;
 
 export const FooterContainer = styled.div`
   height: 10rem;
@@ -47,6 +69,7 @@ export const ContactContainer = styled.div`
   padding: 5rem 0rem;
   gap: 2rem;
   border-top: 1px solid rgba(56, 224, 187, 1);
+  animation: ${(props) => (props.$show ? fadeIn : fadeOut)} 1s ease-in-out;
 `;
 
 export const TitleContainer = styled.div`

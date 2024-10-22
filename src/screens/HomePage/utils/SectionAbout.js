@@ -5,13 +5,14 @@ import {
   Description,
   TitleWhite,
   Section,
-  Row,
   SkillsContainer,
   Skills,
   Skill,
   SkillText,
   SkillContainer,
   StyledTitleContainer,
+  TitleRow,
+  StyledTitleWhite,
 } from "../HomePage.styles";
 
 import { ReactComponent as Git } from "../../../assets/icons/git.svg";
@@ -25,10 +26,10 @@ const SectionAbout = ({ aboutSectionRef }) => {
   return (
     <Section ref={aboutSectionRef} $padding>
       <StyledTitleContainer $big>
-        <Row>
-          <TitleWhite>Hello, I'm</TitleWhite>
+        <TitleRow>
+          <StyledTitleWhite>Hello, I'm</StyledTitleWhite>
           <Title>Srdjan</Title>
-        </Row>
+        </TitleRow>
         <Description $big>
           I would describe myself as resourceful in finding solutions to
           challenges and always having a positive outlook on things. My journey
