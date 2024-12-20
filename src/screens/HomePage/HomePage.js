@@ -15,11 +15,11 @@ import {
 } from "./ContactPage.styles";
 
 import { ReactComponent as Top } from "../../assets/icons/top.svg";
-import successAnimation from "../../assets/animations/success.json";
+// import successAnimation from "../../assets/animations/success.json";
 
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import LottieAnimation from "../../components/utils/LottieAnimation";
+// import LottieAnimation from "../../components/utils/LottieAnimation";
 
 import SectionAbout from "./utils/SectionAbout";
 import SectionProjects from "./utils/SectionProjects";
