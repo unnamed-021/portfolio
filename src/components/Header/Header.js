@@ -23,6 +23,7 @@ const Header = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(menuOpen);
   const [animation, setAnimation] = useState(true);
+  const [logoClick, setLogoClick] = useState(false);
 
   useEffect(() => {
     let timer;
@@ -43,12 +44,33 @@ const Header = ({
     }
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (logoClick) {
+      setTimeout(() => {
+        setLogoClick(false);
+      }, 1000);
+    } else {
+      setLogoClick(false);
+    }
+  }, [logoClick]);
+
   return (
     <HeaderContainer $open={menuOpen}>
       <LogoContainer $invisible>
         <Code />
       </LogoContainer>
-      <LogoContainer>
+      <LogoContainer
+        $click={logoClick}
+        onClick={() => {
+          setLogoClick(true);
+          if (showContact) {
+            setShowContact(false);
+            setAnimation(false);
+            setMenuOpen(false);
+            window.scrollTo(0, 0);
+          }
+        }}
+      >
         <Code />
       </LogoContainer>
 
@@ -114,10 +136,12 @@ const Header = ({
         <StyledNavLinks $open={menuOpen}>
           <Link
             onClick={() => {
-              setShowContact(false);
-              setAnimation(false);
               setMenuOpen(false);
-              window.scrollTo(0, 0);
+              setTimeout(() => {
+                setShowContact(false);
+                setAnimation(false);
+                window.scrollTo(0, 0);
+              }, 300);
             }}
           >
             Home
@@ -125,16 +149,18 @@ const Header = ({
 
           <Link
             onClick={() => {
-              setShowContact(false);
-              setAnimation(false);
               setMenuOpen(false);
-              if (showContact) {
-                setTimeout(() => {
+              setTimeout(() => {
+                setShowContact(false);
+                setAnimation(false);
+                if (showContact) {
+                  setTimeout(() => {
+                    onAboutClick();
+                  }, 300);
+                } else {
                   onAboutClick();
-                }, 300);
-              } else {
-                onAboutClick();
-              }
+                }
+              }, 300);
             }}
           >
             About
@@ -142,16 +168,18 @@ const Header = ({
 
           <Link
             onClick={() => {
-              setShowContact(false);
-              setAnimation(false);
               setMenuOpen(false);
-              if (showContact) {
-                setTimeout(() => {
+              setTimeout(() => {
+                setShowContact(false);
+                setAnimation(false);
+                if (showContact) {
+                  setTimeout(() => {
+                    onProjectsClick();
+                  }, 300);
+                } else {
                   onProjectsClick();
-                }, 300);
-              } else {
-                onProjectsClick();
-              }
+                }
+              }, 300);
             }}
           >
             Projects
@@ -160,10 +188,12 @@ const Header = ({
           <Link
             onClick={() => {
               setMenuOpen(false);
-              window.scrollTo(0, 0);
-              onContactClick();
-              setAnimation(false);
-              setErrors({});
+              setTimeout(() => {
+                onContactClick();
+                setAnimation(false);
+                window.scrollTo(0, 0);
+                setErrors({});
+              }, 300);
             }}
           >
             Contact

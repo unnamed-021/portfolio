@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ModalBackground,
   ModalContainer,
   ModalContentFade,
 } from "./ModalMedia.styles";
 
-const ModalMedia = ({ isOpen, children, phone }) => {
+const ModalMedia = ({ isOpen, children, onClose }) => {
+  const modalContentRef = useRef(null);
   const [isVisible, setIsVisible] = useState(isOpen);
 
   useEffect(() => {
@@ -22,17 +23,21 @@ const ModalMedia = ({ isOpen, children, phone }) => {
   useEffect(() => {
     if (isVisible) {
       document.documentElement.style.overflowY = "hidden";
-      document.documentElement.style.paddingLeft = 0;
     } else {
       document.documentElement.style.overflowY = "scroll";
     }
   }, [isVisible]);
 
+  const handleBackgroundClick = (e) => {
+    if (!modalContentRef.current.contains(e.target)) {
+      onClose();
+    }
+  };
   return (
     isVisible && (
-      <ModalBackground $open={isOpen}>
+      <ModalBackground $open={isOpen} onClick={handleBackgroundClick}>
         <ModalContainer $center>
-          <ModalContentFade $open={isOpen} $phone={phone}>
+          <ModalContentFade $open={isOpen} ref={modalContentRef}>
             {children}
           </ModalContentFade>
         </ModalContainer>

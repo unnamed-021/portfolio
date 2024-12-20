@@ -15,9 +15,12 @@ import {
 } from "./ContactPage.styles";
 
 import { ReactComponent as Top } from "../../assets/icons/top.svg";
+import successAnimation from "../../assets/animations/success.json";
 
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
+import LottieAnimation from "../../components/utils/LottieAnimation";
+
 import SectionAbout from "./utils/SectionAbout";
 import SectionProjects from "./utils/SectionProjects";
 import SectionGif from "./utils/SectionGif";
@@ -65,7 +68,7 @@ const HomePage = () => {
   useEffect(() => {
     let timer;
     if (showContact) {
-      setIsVisible(true);
+      timer = setTimeout(() => setIsVisible(true), 250);
     } else {
       timer = setTimeout(() => setIsVisible(false), 250);
     }
@@ -176,6 +179,13 @@ const HomePage = () => {
               </InputContainer>
               <Button onClick={handleSubmit}>Send Message</Button>
             </Column>
+            {/* <LottieAnimation
+              lottieAnimation={successAnimation}
+              width={200}
+              height={200}
+              autoplay
+              loop={false}
+            /> */}
           </ContactContent>
         </Content>
       )}

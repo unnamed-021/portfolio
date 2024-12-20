@@ -1,6 +1,8 @@
 import { css, keyframes, styled } from "styled-components";
 import Bg from "../../assets/images/bg.png";
 import { ReactComponent as Chevron } from "../../assets/icons/chevron.svg";
+import { ReactComponent as Images } from "../../assets/icons/images.svg";
+import { ReactComponent as Info } from "../../assets/icons/info-icon.svg";
 
 const jumpFadeIn = keyframes`
   0% {
@@ -13,7 +15,7 @@ const jumpFadeIn = keyframes`
   }
   100% {
     transform: translateY(0);
-    opacity: .5;
+    opacity: 1;
   }
 `;
 
@@ -43,14 +45,53 @@ const fadeIn = keyframes`
   }
 `;
 
-const fadeOut = keyframes`
+const iconOut = keyframes`
   from {
     opacity: 1;
-
+    transform: rotate(0deg);
   }
   to {
     opacity: 0;
+    transform: rotate(-180deg);
+  }
+`;
 
+const iconIn = keyframes`
+  from {
+    opacity: 0;
+    transform: rotate(180deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+`;
+
+const bounce = keyframes`
+  0% {
+  }
+  35% {
+    scale: 1;
+    filter: drop-shadow(0px 0px 5px transparent);
+  }
+  50% {
+    scale: 1.15;
+    filter: drop-shadow(0px 0px 5px #aff3e4);
+  }
+  65% {
+    scale: 1;
+    filter: drop-shadow(0px 0px 5px transparent);
+  }
+  100% {
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 `;
 
@@ -74,6 +115,40 @@ export const IconContainer = styled.div`
     background-color: rgba(255, 255, 255, 0.65);
     opacity: 1;
   }
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15), 0px 2.5px 5px rgba(0, 0, 0, 0.2);
+`;
+
+export const ChevronDown = styled(Chevron)`
+  transform: ${(props) => (props.$up ? "rotate(90deg)" : "rotate(-90deg)")};
+  width: 2rem;
+  height: auto;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  path {
+    fill: #aff3e4;
+  }
+`;
+
+export const ImagesIcon = styled(Images)`
+  cursor: pointer;
+  width: 2.6rem;
+  height: auto;
+  transition: all 0.2s ease-in-out;
+  animation: ${(props) => (props.$active ? iconIn : iconOut)} 0.2s ease-in-out;
+`;
+
+export const InfoIcon = styled(Info)`
+  cursor: pointer;
+  width: 2.6rem;
+  height: auto;
+  transition: all 0.2s ease-in-out;
+  animation: ${(props) => (!props.$active ? iconIn : iconOut)} 0.2s ease-in-out,
+    ${bounce} 5s ease-in-out infinite;
+
+  path {
+    fill: #aff3e4;
+  }
 `;
 export const ChevronLeft = styled(Chevron)`
   transform: scale(-1);
@@ -90,17 +165,25 @@ export const ChevronRight = styled(Chevron)`
     fill: #aff3e4;
   }
 `;
+export const RelativeIconContainer = styled.div`
+  width: 100%;
+`;
+export const RelativeIcon = styled.div`
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+
 export const IconsContainer = styled.div`
   display: flex;
   flex-direction: row;
   border-radius: 20px;
-  /* position: absolute; */
-  z-index: 501;
+  width: 100%;
   align-items: center;
-  /* top: 3rem;
-  right: 3rem; */
   margin-bottom: 2rem;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15), 0px 2.5px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 `;
 
 export const Project = styled.div`
@@ -113,9 +196,13 @@ export const Project = styled.div`
 
   flex-direction: column;
   animation: ${(props) => (props.$show ? fadeIn : fadeIn)} 0.6s ease-in-out;
-  height: 90rem;
+  height: 59rem;
+  margin-bottom: 10rem;
   @media (max-width: 950px) {
     width: 100%;
+  }
+  @media (max-width: 800px) {
+    height: 100%;
   }
 `;
 export const Container = styled.div`
@@ -142,8 +229,8 @@ export const Content = styled.div`
   max-width: 144rem;
   height: 100%;
   align-items: center;
+  animation: ${(props) => (props.$show ? fadeIn : fadeOut)} 0.3s ease-in-out;
 
-  animation: ${(props) => (props.$show ? fadeIn : fadeOut)} 1s ease-in-out;
   @media (max-width: 800px) {
     gap: 6rem;
   }
@@ -186,6 +273,13 @@ export const Glow = styled.img`
 
   @media (max-width: 800px) {
     scale: 0.8;
+    margin-bottom: -5rem;
+    /* display: none; */
+  }
+  @media (max-width: 400px) {
+    scale: 0.5;
+    margin-bottom: -5rem;
+    /* display: none; */
   }
 `;
 export const Relative = styled.div`
@@ -195,7 +289,7 @@ export const Relative = styled.div`
   justify-content: center;
   align-items: center;
   user-select: none;
-
+  animation: ${(props) => (props.$open ? fadeIn : fadeOut)} 0.3s ease-in-out;
   /* overflow: hidden; */
 `;
 
@@ -217,11 +311,26 @@ export const Title = styled.div`
   }
 `;
 
+export const Link = styled.h3`
+  font-size: 1.6rem;
+  text-shadow: 0px 0px 5px black;
+  margin-top: -1rem;
+  user-select: none;
+  font-family: "Poppins-Medium";
+  color: #aff3e4;
+  cursor: pointer;
+  max-width: ${(props) => (props.$big ? "75rem" : "55rem")};
+  text-align: ${(props) => (props.$center ? "center" : "left")};
+  @media (max-width: 550px) {
+    font-size: 1.2rem;
+    max-width: 100%;
+  }
+`;
+
 export const Description = styled.h3`
   font-size: 1.6rem;
   text-shadow: 0px 0px 5px black;
-  user-select: none;
-  z-index: 2;
+  /* user-select: none; */
   font-family: "Poppins-Medium";
   color: white;
   max-width: ${(props) => (props.$big ? "75rem" : "55rem")};
@@ -235,7 +344,6 @@ export const Description = styled.h3`
 export const ProjectDescription = styled.h3`
   font-size: 1.6rem;
   text-shadow: 0px 0px 5px black;
-  z-index: 2;
   user-select: none;
   font-family: "Poppins-Medium";
   color: white;
@@ -281,6 +389,8 @@ export const Gif = styled.img`
 `;
 
 export const ProgressContainer = styled.div`
+  width: 100%;
+
   animation: ${(props) =>
     props.$show
       ? css`
@@ -289,54 +399,29 @@ export const ProgressContainer = styled.div`
       : css`
           ${fadeOut} 0.5s forwards
         `};
-
-  position: absolute;
-  left: 5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 100%;
-  z-index: 999;
-  @media (max-width: 650px) {
-    left: 50%;
-    top: unset;
-    transform: translateX(-50%);
-    bottom: 0;
-    height: unset;
-    width: 100%;
-  }
+  margin: 2rem 0rem;
 `;
 export const Progress = styled.div`
   position: relative;
   display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  @media (max-width: 650px) {
-    height: auto;
-    flex-direction: row;
-    align-items: center;
-  }
+  flex-direction: row;
+  align-items: center;
 `;
-export const Line = styled.div`
-  width: 100%;
-  height: 4rem;
 
+export const Line = styled.div`
+  width: 4rem;
+  height: 0.4rem;
   background-color: ${({ $active }) =>
     $active ? "#aff3e4" : "rgba(255,255,255,.25)"};
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   transition: background-color 0.3s ease;
-  @media (max-width: 650px) {
-    width: 4rem;
-    height: 0.5rem;
-  }
 `;
 
 export const Dot = styled.div`
-  margin-left: -4.5px;
   min-width: 12px;
   max-width: 12px;
+  cursor: pointer;
   min-height: 12px;
   max-height: 12px;
   background-color: ${({ $active }) =>
@@ -345,9 +430,6 @@ export const Dot = styled.div`
   -webkit-backdrop-filter: blur(5px);
   transition: background-color 0.3s ease;
   border-radius: 50%;
-  @media (max-width: 650px) {
-    margin-left: 0px;
-  }
 `;
 export const Dots = styled.div`
   display: flex;
@@ -385,6 +467,8 @@ export const ImageDiv = styled.div`
   margin-right: 5rem;
   border-radius: 50%;
   overflow: hidden;
+  pointer-events: none;
+  user-select: none;
   box-shadow: inset 0px 0px 10px 5px rgba(56, 224, 187, 1),
     inset 0px 0px 25px 10px #aff3e4, 0px 0px 25px 10px #0008;
   @media (max-width: 950px) {
@@ -527,21 +611,23 @@ export const ClickContainer = styled.div`
   transition: all 0.2s ease-in-out;
   opacity: ${(props) => (props.$show ? 1 : 0)};
 `;
+export const Animation = styled.div`
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  gap: 2rem;
+  animation: ${(props) => (props.$open ? fadeIn : fadeOut)} 0.3s ease-in-out;
+`;
 export const ProjectsRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  justify-content: center;
-  z-index: 2;
   gap: 1rem;
-  &:hover {
-    scale: ${(props) => (props.$offHover ? 1 : 1.025)};
-  }
-  transition: scale 0.3s ease-in-out;
-  @media (max-width: 350px) {
-    flex-wrap: wrap;
-  }
+
+  flex-wrap: wrap;
 `;
 
 export const HeaderRow = styled.div`
@@ -571,9 +657,6 @@ export const Row = styled.div`
   gap: 1rem;
   margin-left: ${(props) => (props.$small ? "-6rem" : "0rem")};
   flex-wrap: wrap;
-  @media (max-width: 350px) {
-    justify-content: center;
-  }
 `;
 export const TitleRow = styled.div`
   display: flex;
@@ -607,7 +690,7 @@ export const Section = styled.section`
   display: flex;
   width: 100%;
   flex-direction: column;
-  max-width: ${(props) => (props.$center ? "100%" : "75rem")};
+  max-width: ${(props) => (props.$center ? "100%" : "91rem")};
   align-items: center;
   justify-content: ${(props) => (props.$center ? "center" : "flex-start")};
   height: 100%;
@@ -633,20 +716,7 @@ export const SkillContainer = styled.div`
     }
   }
 `;
-export const PhoneImg = styled.img`
-  user-select: none;
-  width: 26rem;
-  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
 
-  @media (max-width: 800px) {
-    width: 22rem !important;
-  }
-  @media (max-width: 400px) {
-    width: 20rem !important;
-  }
-`;
 export const Wrapper = styled.div`
   width: 22rem;
   transition: all 0.3s ease-in-out;
@@ -654,94 +724,113 @@ export const Wrapper = styled.div`
     width: 52rem;
   }
 `;
-export const StyledPhoneImg = styled(PhoneImg)`
+
+export const PhoneImg = styled.img`
+  width: 26rem;
   user-select: none;
-  width: 22rem;
+  z-index: 9;
+  transition: transform 0.6s ease-in-out, width 0.6s ease-in-out;
   cursor: pointer;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
-  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
-
-  margin-right: ${(props) => (props.$right ? "-10rem" : "0rem")};
-  margin-left: ${(props) => (props.$left ? "-10rem" : "0rem")};
-  transform: ${(props) => (props.$right ? "rotate(-12deg)" : "rotate(12deg)")};
-  z-index: 5;
-
-  &:hover {
-    transform: rotate(0deg) !important;
-    width: 26rem !important;
-    z-index: 10;
-  }
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 
   @media (max-width: 800px) {
     width: 20rem !important;
-    transform: ${(props) =>
-      props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
-    &:hover {
-      transform: rotate(0deg) !important;
-      z-index: 10;
-      width: 22rem !important;
-    }
   }
 
   @media (max-width: 400px) {
     width: 18rem !important;
-    transform: ${(props) =>
-      props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
-    &:hover {
-      transform: rotate(0deg) !important;
-      z-index: 10;
-      width: 20rem !important;
-    }
   }
 `;
+
+export const LeftPhoneImg = styled(PhoneImg)`
+  z-index: ${(props) => (props.$hover ? 10 : 8)};
+  width: ${(props) => (props.$hover ? "26rem" : "22rem")};
+  transform: ${(props) =>
+    props.$hover
+      ? "translateX(-50%) rotate(0deg)"
+      : "translateX(-100%) rotate(-12deg)"};
+  filter: ${(props) =>
+    props.$hover
+      ? "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65))"
+      : "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65)) blur(1px)"};
+`;
+
+export const RightPhoneImg = styled(PhoneImg)`
+  width: ${(props) => (props.$hover ? "26rem" : "22rem")};
+  z-index: ${(props) => (props.$hover ? 10 : 8)};
+  transform: ${(props) =>
+    props.$hover
+      ? "translateX(-50%) rotate(0deg)"
+      : "translateX(0%) rotate(12deg)"};
+  filter: ${(props) =>
+    props.$hover
+      ? "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65))"
+      : "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65)) blur(1px)"};
+`;
+
 export const WebImg = styled.img`
-  user-select: none;
   width: 54rem;
+  user-select: none;
+  z-index: 9;
+  transition: transform 0.6s ease-in-out, width 0.6s ease-in-out;
   cursor: pointer;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
-  transition: all 0.3s ease-in-out;
-  z-index: 5;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 
   @media (max-width: 1070px) {
-    width: 40rem !important;
+    width: 40rem;
   }
 `;
 
-export const StyledWebImg = styled(WebImg)`
-  user-select: none;
-  width: 40rem;
-  cursor: pointer;
-  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
-  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
-  margin-right: ${(props) => (props.$right ? "-22rem" : "0rem")};
-  margin-left: ${(props) => (props.$left ? "-22rem" : "0rem")};
-  transform: ${(props) => (props.$right ? "rotate(-12deg)" : "rotate(12deg)")};
-  z-index: 5;
-
-  &:hover {
-    transform: rotate(0deg) !important;
-    width: 54rem !important;
-    z-index: 10;
-  }
+export const RightWebImg = styled(WebImg)`
+  width: ${(props) => (props.$hover ? "54rem" : "40rem")};
+  z-index: ${(props) => (props.$hover ? 10 : 8)};
+  transform: ${(props) =>
+    props.$hover
+      ? "translateX(-50%) rotate(0deg)"
+      : "translateX(0%) rotate(12deg)"};
+  filter: ${(props) =>
+    props.$hover
+      ? "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65))"
+      : "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65)) blur(1px)"};
 
   @media (max-width: 1070px) {
-    width: 30rem !important;
-    transform: ${(props) =>
-      props.$right ? "rotate(-12deg)" : "rotate(12deg)"};
-
-    &:hover {
-      z-index: 10;
-      transform: rotate(0deg) !important;
-      width: 40rem !important;
-    }
+    width: ${(props) => (props.$hover ? "40rem" : "34rem")};
   }
 
-  @media (max-width: 700px) {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: ${(props) => (!props.$right ? "-5rem" : "0rem")};
-    margin-bottom: ${(props) => (!props.$left ? "-5rem" : "0rem")};
-    transform: rotate(0deg);
+  @media (max-width: 780px) {
+    transform: ${(props) =>
+      props.$hover
+        ? "translateX(-50%) rotate(0deg)"
+        : "translateX(-50%) translateY(-35%) rotate(0deg)"};
+  }
+`;
+
+export const LeftWebImg = styled(WebImg)`
+  width: ${(props) => (props.$hover ? "54rem" : "40rem")};
+  z-index: ${(props) => (props.$hover ? 10 : 8)};
+  transform: ${(props) =>
+    props.$hover
+      ? "translateX(-50%) rotate(0deg)"
+      : "translateX(-100%) rotate(-12deg)"};
+  filter: ${(props) =>
+    props.$hover
+      ? "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65))"
+      : "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65)) blur(1px)"};
+
+  @media (max-width: 1070px) {
+    width: ${(props) => (props.$hover ? "40rem" : "34rem")};
+  }
+  @media (max-width: 780px) {
+    transform: ${(props) =>
+      props.$hover
+        ? "translateX(-50%) rotate(0deg)"
+        : "translateX(-50%) translateY(35%) rotate(0deg)"};
   }
 `;
 
@@ -752,28 +841,25 @@ export const PhonesContainer = styled.div`
   align-items: center;
   min-height: 50rem;
   z-index: 9;
+  position: relative;
   @media (max-width: 800px) {
-    margin: 5rem 0rem;
-    min-height: 100%;
+    display: none;
   }
 `;
 
 export const WebContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  min-height: 50rem;
   z-index: 9;
-  min-height: 32rem;
-
+  position: relative;
   @media (max-width: 800px) {
-    margin: 5rem 0rem;
-    min-height: 100%;
-  }
-  @media (max-width: 700px) {
-    flex-direction: column;
+    display: none;
   }
 `;
+
 export const ProjectColumn = styled.div`
   display: flex;
   flex-direction: column;
@@ -781,7 +867,6 @@ export const ProjectColumn = styled.div`
 
   align-items: center;
   justify-content: center;
-  /* background-color: red; */
   @media (max-width: 600px) {
     width: 100%;
   }
@@ -795,55 +880,52 @@ export const ProjectTitle = styled.span`
 
   user-select: none;
   text-shadow: 0px 0px 5px black;
-  text-align: center;
-  cursor: ${(props) => (props.$offHover ? "default" : "pointer")};
 
-  &:hover {
-    background: ${(props) =>
-      props.$offHover
-        ? "white"
-        : "linear-gradient(90deg, #aff3e4 0%, rgba(56, 224, 187, 1) 100%)"};
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: unset;
-  }
   @media (max-width: 550px) {
     font-size: 3rem;
     line-height: 3.5rem;
-    margin-bottom: 1rem;
   }
 `;
 
 export const ProjectsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* gap: 2rem; */
-  margin-top: 10rem;
+  margin-top: 4rem;
   width: 100%;
   position: relative;
   align-items: center;
 `;
 
 export const GoToTop = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  z-index: 15;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50rem;
+
   align-items: center;
   justify-content: center;
-  background-color: rgba(56, 224, 187, 1);
+  background-color: rgba(56, 224, 187, 0.5);
   position: fixed;
-  bottom: 40px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  bottom: 4rem;
   cursor: pointer;
-  right: 40px;
-  border: 1.5px solid #fff;
+  right: 4rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease-in-out;
-  opacity: 0.5;
   display: flex;
   animation: ${({ $show }) => ($show ? jumpFadeIn : jumpFadeOut)} 0.5s forwards;
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.25);
   &:hover {
-    opacity: 1 !important;
+    background-color: rgba(56, 224, 187, 1);
+    border: 1.5px solid rgba(255, 255, 255, 1);
+  }
+`;
+
+export const MediaSliderContainer = styled.div`
+  display: none;
+  min-height: 50rem;
+
+  @media (max-width: 800px) {
+    display: flex;
   }
 `;

@@ -41,7 +41,13 @@ export const XIcon = styled(Close)`
 
 export const Relative = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
 `;
+
 export const ModalButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -401,19 +407,16 @@ export const StyledIconContainer = styled.div`
   z-index: 20;
   align-items: center;
   justify-content: center;
-  cursor: ${(props) => (props.$edit ? "default" : "pointer")};
+  cursor: pointer;
   border-radius: 50%;
-  background: ${(props) =>
-    props.$edit ? "transparent" : "rgba(0, 0, 0, 0.2)"};
-  width: 40px;
-  height: 40px;
+  background: rgba(0, 0, 0, 0.2);
+  min-width: 4rem;
+  max-width: 4rem;
+  min-height: 4rem;
+  max-height: 4rem;
+  outline: 1px solid #aff3e415;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  position: absolute;
-  top: -5rem;
-  left: 50%;
-  right: unset;
-  transform: translateX(-50%);
 
   @media (max-width: 600px) {
     width: 30px;
@@ -471,20 +474,57 @@ export const IconsContainer = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-
   padding: 15px;
 `;
 
 export const Image = styled.img`
-  border-radius: 1rem;
-  object-fit: contain;
-  height: 100%;
+  height: 80%;
+  user-select: none;
+  pointer-events: none;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.65));
-  width: 100%;
+
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  opacity: ${(props) => (props.$isTransitioning ? 0 : 1)};
+
+  transform: ${(props) =>
+    props.$isTransitioning
+      ? props.$direction === "left"
+        ? "translateX(-150%)"
+        : "translateX(150%)"
+      : "translateX(0)"};
+
+  @media (max-width: 1500px) {
+    height: 63%;
+  }
+  @media (max-width: 800px) {
+    height: ${(props) => (props.$phone ? "50%" : "100%")};
+  }
 `;
+
 export const Video = styled.video`
   width: 100%;
   border-radius: 1rem;
   object-fit: contain;
   height: 100%;
+`;
+
+export const Dots = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  align-self: center;
+`;
+
+export const Dot = styled.div`
+  transition: all 0.3s ease-in-out;
+  width: 1.2rem;
+  border-radius: 50%;
+  background-color: ${(props) =>
+    props.$active ? "rgba(56, 224, 187, 1)" : "black"};
+  outline: ${(props) =>
+    props.$active ? "1px solid black" : "1px solid rgba(56, 224, 187, 1)"};
+  height: 1.2rem;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
 `;

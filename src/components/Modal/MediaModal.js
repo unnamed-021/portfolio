@@ -5,10 +5,23 @@ import {
   StyledIconContainer,
   Image,
   Relative,
+  Dots,
+  Dot,
 } from "./ModalComponent.styles";
 import Modal from "./ModalMedia";
 
-const MediaModal = ({ open, onClose, mediaUrl, type }) => {
+const MediaModal = ({
+  open,
+  onClose,
+  mediaUrl,
+  type,
+  single,
+  images,
+  currentImageIndex,
+  setActiveIndex,
+  isTransitioning,
+  direction,
+}) => {
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       onClose();
@@ -24,13 +37,47 @@ const MediaModal = ({ open, onClose, mediaUrl, type }) => {
   }, [handleKeyDown]);
 
   return (
-    <Modal isOpen={open} onClose={onClose} phone={type === "mobile"}>
-      <Relative>
-        <StyledIconContainer onClick={onClose}>
-          <CloseSvg />
-        </StyledIconContainer>
-        <Image src={mediaUrl} />
-      </Relative>
+    <Modal isOpen={open} onClose={onClose}>
+      {single ? (
+        <Relative>
+          <StyledIconContainer onClick={onClose}>
+            <CloseSvg />
+          </StyledIconContainer>
+          <Image
+            src={mediaUrl}
+            $phone={type === "app"}
+            style={{
+              aspectRatio: type === "app" ? "9 / 16" : "16 /9",
+              width: type === "app" ? "unset" : "100%",
+            }}
+          />
+        </Relative>
+      ) : (
+        <Relative>
+          <StyledIconContainer onClick={onClose}>
+            <CloseSvg />
+          </StyledIconContainer>
+          <Image
+            $isTransitioning={isTransitioning}
+            $direction={direction}
+            src={images[currentImageIndex].url}
+            $phone={type === "app"}
+            style={{
+              aspectRatio: type === "app" ? "9 / 16" : "16 /9",
+              width: type === "app" ? "unset" : "100%",
+            }}
+          />
+          <Dots>
+            {images.map((e, index) => (
+              <Dot
+                key={index}
+                $active={index === currentImageIndex}
+                onClick={() => setActiveIndex(index)}
+              />
+            ))}
+          </Dots>
+        </Relative>
+      )}
     </Modal>
   );
 };

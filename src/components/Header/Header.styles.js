@@ -1,4 +1,4 @@
-import { keyframes, styled } from "styled-components";
+import { css, keyframes, styled } from "styled-components";
 
 const fadeIn = keyframes`
   from {
@@ -18,6 +18,21 @@ const fadeOut = keyframes`
   }
 `;
 
+const click = keyframes`
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.2) rotate(360deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+`;
+
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
@@ -34,6 +49,15 @@ export const LogoContainer = styled.div`
   opacity: ${(props) => (props.$invisible ? 0 : 1)};
   top: 2rem;
   left: 2rem;
+  cursor: pointer;
+  user-select: none;
+
+  animation: ${(props) =>
+    props.$click
+      ? css`
+          ${click} 1s ease-in-out
+        `
+      : "none"};
 `;
 export const HeaderContainer = styled.div`
   background-color: transparent;
@@ -44,7 +68,7 @@ export const HeaderContainer = styled.div`
   transition: all 0.3s ease-in-out;
   position: relative;
   max-width: 120rem;
-  padding: 2rem;
+  /* padding: 2rem; */
   min-height: ${(props) => (props.$open ? "100dvh" : "7rem")};
 `;
 

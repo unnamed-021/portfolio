@@ -1,6 +1,9 @@
 import App1 from "../assets/images/ygiiApp1.png";
 import App2 from "../assets/images/ygiiApp2.png";
 import App3 from "../assets/images/ygiiApp3.png";
+import App1Slider from "../assets/images/ygiiApp1-slider.png";
+import App2Slider from "../assets/images/ygiiApp2-slider.png";
+import App3Slider from "../assets/images/ygiiApp3-slider.png";
 import Bp3 from "../assets/images/bp1.png";
 import Bp2 from "../assets/images/bp2.png";
 import Bp1 from "../assets/images/bp3.png";
@@ -13,6 +16,12 @@ import Rl33 from "../assets/images/rl33.png";
 import Cl1 from "../assets/images/cl1.png";
 import Cl2 from "../assets/images/cl2.png";
 import Cl3 from "../assets/images/cl3.png";
+import Rl11Slider from "../assets/images/rl11-slider.png";
+import Rl22Slider from "../assets/images/rl22-slider.png";
+import Rl33Slider from "../assets/images/rl33-slider.png";
+import Cl1Slider from "../assets/images/cl1-slider.png";
+import Cl2Slider from "../assets/images/cl2-slider.png";
+import Cl3Slider from "../assets/images/cl3-slider.png";
 import Pl1 from "../assets/images/pl1.png";
 import Pl2 from "../assets/images/pl2.png";
 import Pl3 from "../assets/images/pl3.png";
@@ -25,6 +34,12 @@ import Tb3 from "../assets/images/tb3.png";
 import Ns1 from "../assets/images/ns1.png";
 import Ns2 from "../assets/images/ns2.png";
 import Ns3 from "../assets/images/ns3.png";
+import Tb1Slider from "../assets/images/tb1-slider.png";
+import Tb2Slider from "../assets/images/tb2-slider.png";
+import Tb3Slider from "../assets/images/tb3-slider.png";
+import Ns1Slider from "../assets/images/ns1-slider.png";
+import Ns2Slider from "../assets/images/ns2-slider.png";
+import Ns3Slider from "../assets/images/ns3-slider.png";
 import Eyc1 from "../assets/images/eyc1.png";
 import Eyc2 from "../assets/images/eyc2.png";
 import Eyc3 from "../assets/images/eyc3.png";
@@ -60,11 +75,21 @@ export const projectData = [
     leftPhoto: App2,
     middlePhoto: App1,
     rightPhoto: App3,
+    photos: [
+      { id: 1, url: App1Slider },
+      { id: 2, url: App2Slider },
+      { id: 3, url: App3Slider },
+    ],
+    modalPhotos: [
+      { id: 1, url: App1 },
+      { id: 2, url: App2 },
+      { id: 3, url: App3 },
+    ],
   },
   {
     id: 2,
     title: "Ygii Business Portal",
-    link: "https://portal.ygii.app/en/",
+    link: "https://portal.ygii.app/",
     description:
       "Ygii aims to transform the personal and corporate gift-giving experience by fostering a culture of gratitude and mutual respect  through thoughtful and impactful gifts.",
     appStore: null,
@@ -74,6 +99,16 @@ export const projectData = [
     leftPhoto: Bp1,
     middlePhoto: Bp3,
     rightPhoto: Bp2,
+    photos: [
+      { id: 1, url: Bp1 },
+      { id: 2, url: Bp2 },
+      { id: 3, url: Bp3 },
+    ],
+    modalPhotos: [
+      { id: 1, url: Bp1 },
+      { id: 2, url: Bp2 },
+      { id: 3, url: Bp3 },
+    ],
   },
   {
     id: 3,
@@ -90,6 +125,16 @@ export const projectData = [
     leftPhoto: Rl22,
     middlePhoto: Rl11,
     rightPhoto: Rl33,
+    photos: [
+      { id: 1, url: Rl22Slider },
+      { id: 2, url: Rl11Slider },
+      { id: 3, url: Rl33Slider },
+    ],
+    modalPhotos: [
+      { id: 1, url: Rl22 },
+      { id: 2, url: Rl11 },
+      { id: 3, url: Rl33 },
+    ],
   },
   {
     id: 4,
@@ -104,6 +149,16 @@ export const projectData = [
     leftPhoto: Rl2,
     middlePhoto: Rl1,
     rightPhoto: Rl3,
+    photos: [
+      { id: 1, url: Rl2 },
+      { id: 2, url: Rl1 },
+      { id: 3, url: Rl3 },
+    ],
+    modalPhotos: [
+      { id: 1, url: Rl2 },
+      { id: 2, url: Rl1 },
+      { id: 3, url: Rl3 },
+    ],
   },
   {
     id: 5,
@@ -118,6 +173,16 @@ export const projectData = [
     leftPhoto: Pl2,
     middlePhoto: Pl1,
     rightPhoto: Pl3,
+    photos: [
+      { id: 1, url: Pl2 },
+      { id: 2, url: Pl1 },
+      { id: 3, url: Pl3 },
+    ],
+    modalPhotos: [
+      { id: 1, url: Pl2 },
+      { id: 2, url: Pl1 },
+      { id: 3, url: Pl3 },
+    ],
   },
   {
     id: 6,
@@ -132,6 +197,16 @@ export const projectData = [
     leftPhoto: Cl2,
     middlePhoto: Cl1,
     rightPhoto: Cl3,
+    photos: [
+      { id: 1, url: Cl2Slider },
+      { id: 2, url: Cl1Slider },
+      { id: 3, url: Cl3Slider },
+    ],
+    modalPhotos: [
+      { id: 1, url: Cl2 },
+      { id: 2, url: Cl1 },
+      { id: 3, url: Cl3 },
+    ],
   },
   {
     id: 7,
@@ -146,6 +221,16 @@ export const projectData = [
     leftPhoto: Ob2,
     middlePhoto: Ob1,
     rightPhoto: Ob3,
+    photos: [
+      { id: 1, url: Ob2 },
+      { id: 2, url: Ob1 },
+      { id: 3, url: Ob3 },
+    ],
+    modalPhotos: [
+      { id: 1, url: Ob2 },
+      { id: 2, url: Ob1 },
+      { id: 3, url: Ob3 },
+    ],
   },
   {
     id: 8,
@@ -160,6 +245,16 @@ export const projectData = [
     leftPhoto: Tb2,
     middlePhoto: Tb1,
     rightPhoto: Tb3,
+    photos: [
+      { id: 1, url: Tb2Slider },
+      { id: 2, url: Tb1Slider },
+      { id: 3, url: Tb3Slider },
+    ],
+    modalPhotos: [
+      { id: 1, url: Tb2 },
+      { id: 2, url: Tb1 },
+      { id: 3, url: Tb3 },
+    ],
   },
   {
     id: 9,
@@ -174,6 +269,16 @@ export const projectData = [
     leftPhoto: Ns2,
     middlePhoto: Ns1,
     rightPhoto: Ns3,
+    photos: [
+      { id: 1, url: Ns2Slider },
+      { id: 2, url: Ns1Slider },
+      { id: 3, url: Ns3Slider },
+    ],
+    modalPhotos: [
+      { id: 1, url: Ns2 },
+      { id: 2, url: Ns1 },
+      { id: 3, url: Ns3 },
+    ],
   },
   {
     id: 10,
@@ -188,5 +293,15 @@ export const projectData = [
     leftPhoto: Eyc1,
     middlePhoto: Eyc2,
     rightPhoto: Eyc3,
+    photos: [
+      { id: 1, url: Eyc1 },
+      { id: 2, url: Eyc2 },
+      { id: 3, url: Eyc3 },
+    ],
+    modalPhotos: [
+      { id: 1, url: Eyc1 },
+      { id: 2, url: Eyc2 },
+      { id: 3, url: Eyc3 },
+    ],
   },
 ];
